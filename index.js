@@ -2,7 +2,6 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import jwt from 'jsonwebtoken';
 
 import authRoute from './routes/auth.js'
 
@@ -19,19 +18,6 @@ app.use(express.json());
 
 // Routes
 app.use('/api/auth', authRoute);
-
-// app.post('/auth', (req, res) => {
-//     const token = jwt.sign({
-//         name: req.body.name,
-//         surname: req.body.surname,
-//         nick: req.body.nick
-//     }, 'xxXX1234');
-
-//     res.json({
-//         token,
-//         success: true
-//     })
-// });
 
 mongoose
     .connect(LINK_DB)
