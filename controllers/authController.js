@@ -1,7 +1,7 @@
 import { validationResult } from 'express-validator';
-import UserModel from '../models/User.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import UserModel from '../models/User.js';
 
 export const register = async (req, res) => {
     try {
@@ -18,11 +18,11 @@ export const register = async (req, res) => {
         const hash = await bcrypt.hash(password, salt);
 
         const doc = new UserModel({
-            email: req.body.email,
             fullName: req.body.fullName,
-            avatarUrl: req.body.avatarUrl,
+            email: req.body.email,
             passwordHash: hash,
-            role: req.body.role
+            role: req.body.role,
+            avatarUrl: req.body.avatarUrl,
         });
 
         const user = await doc.save();
@@ -30,7 +30,6 @@ export const register = async (req, res) => {
         const token = jwt.sign(
             {
                 id: user._id,
-                role: user.role
             },
             JWT_SECRET,
             {expiresIn: '30d'}
@@ -55,10 +54,7 @@ export const login = async (req, res) => {
         // Constants
         const JWT_SECRET = process.env.JWT_SECRET;
 
-
-        const user = await UserModel.findOne({
-            email: req.body.email
-        });
+        const user = await UserModel.findOne({email: req.body.email});
 
         if(!user) {
             return res.status(404).json({
@@ -77,7 +73,6 @@ export const login = async (req, res) => {
         const token = jwt.sign(
             {
                 id: user._id,
-                role: user.role
             },
             JWT_SECRET,
             {expiresIn: '30d'}

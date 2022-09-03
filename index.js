@@ -2,7 +2,6 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
-
 import authRoute from './routes/auth.js'
 
 const app = express();
@@ -26,9 +25,6 @@ mongoose
 
 
 app.listen(PORT, (err) => {
-    if(err) {
-        return console.log(err);
-    }
-
+    if(err) {return console.log(err)}
     console.log('Server OK', `PORT ${PORT}`);
 });
