@@ -9,6 +9,7 @@ const SetupSchema = new mongoose.Schema({
     orderName: {
         type: String,
         required: true,
+        default: 'Сетап'
     },
     communications: {
         type: String,
@@ -25,6 +26,9 @@ const SetupSchema = new mongoose.Schema({
     },
     coment: {
         type: String,
+    },
+    price: {
+        type: Number
     },
     user: { 
         type: mongoose.Schema.Types.ObjectId,

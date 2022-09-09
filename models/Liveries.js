@@ -9,6 +9,7 @@ const LiveriesSchema = new mongoose.Schema({
     orderName: {
         type: String,
         required: true,
+        default: 'Ливрея'
     },
     communications: {
         type: String,
@@ -22,6 +23,9 @@ const LiveriesSchema = new mongoose.Schema({
     },
     coment: {
         type: String,
+    },
+    price: {
+        type: Number
     },
     user: { 
         type: mongoose.Schema.Types.ObjectId,

@@ -9,6 +9,7 @@ const TrainingSchema = new mongoose.Schema({
     orderName: {
         type: String,
         required: true,
+        default: 'Тренировка'
     },
     communications: {
         type: String,
@@ -47,7 +48,9 @@ const TrainingSchema = new mongoose.Schema({
         required: true
     },
     status: {
-        type: String
+        type: String,
+        required: true,
+        default: 'В обработке'
     }
 },
 {
