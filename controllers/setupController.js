@@ -1,6 +1,5 @@
 import SetupModel from '../models/Setup.js'
 
-
 export const createSetup = async (req, res) => {
     try {
         const doc = new SetupModel({
@@ -22,6 +21,18 @@ export const createSetup = async (req, res) => {
         console.log(err)
         res.status(500).json({
             message: 'Не удалось создать заказ'
+        })
+    }
+}
+
+export const getAllSetup = async (req, res) => {
+    try {
+        const orders = await SetupModel.find().populate('user').exec();
+        res.json(orders);
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({
+            message: 'Не удалось получить Сетапы'
         })
     }
 }

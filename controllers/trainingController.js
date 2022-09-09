@@ -1,6 +1,5 @@
 import TrainingModel from '../models/Training.js'
 
-
 export const createTraining = async (req, res) => {
     try {
         const doc = new TrainingModel({
@@ -27,6 +26,18 @@ export const createTraining = async (req, res) => {
         console.log(err)
         res.status(500).json({
             message: 'Не удалось создать заказ'
+        })
+    }
+}
+
+export const getAllTraining = async (req, res) => {
+    try {
+        const orders = await TrainingModel.find().populate('user').exec();
+        res.json(orders);
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({
+            message: 'Не удалось получить статьи'
         })
     }
 }
