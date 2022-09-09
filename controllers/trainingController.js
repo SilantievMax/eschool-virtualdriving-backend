@@ -41,3 +41,16 @@ export const getAllTraining = async (req, res) => {
         })
     }
 }
+
+export const getOneTraining = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const order = await TrainingModel.findById(id);
+        res.json(order);
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({
+            message: 'Не удалось получить статью'
+        })
+    }
+}

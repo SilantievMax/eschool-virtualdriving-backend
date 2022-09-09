@@ -35,3 +35,16 @@ export const getAllLiveries = async (req, res) => {
         })
     }
 }
+
+export const getOneLiveries = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const order = await liveriesModel.findById(id);
+        res.json(order);
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({
+            message: 'Не удалось получить статью'
+        })
+    }
+}
