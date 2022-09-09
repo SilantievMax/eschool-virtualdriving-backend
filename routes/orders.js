@@ -7,22 +7,22 @@ import checkAuth from '../utils/checkAuth.js'
 
 const router = new Router();
 
-// router.get('/training/', getAllTraining);
-// router.get('/training/id', getOneTraining);
-router.post('/trainingcreate', checkAuth, createTraining);
-// router.delete('/training/', removeTraining);
-// router.patch('/training/', updateTraining);
+// router.get('/training/getall', getAllTraining);
+// router.get('/training/getone/:id', getOneTraining);
+router.post('/training/create', checkAuth, createTraining);
+// router.delete('/training/remove', removeTraining);
+// router.patch('/training/update', updateTraining);
 
-// router.get('/setup/', getAllTraining);
-// router.get('/setup/id', getOneTraining);
-router.post('/setupcreate', checkAuth, createSetup);
-// router.delete('/setup/', removeTraining);
-// router.patch('/setup/', updateTraining);
+// router.get('/setup/getall', getAllTraining);
+// router.get('/setup/getone/:id', getOneTraining);
+router.post('/setup/create', checkAuth, createSetup);
+// router.delete('/setup/remove', removeTraining);
+// router.patch('/setup/update', updateTraining);
 
-// router.get('/liveries/', getAllTraining);
-// router.get('/liveries/id', getOneTraining);
-router.post('/liveriescreate', checkAuth, createliveries);
-// router.delete('/liveries/', removeTraining);
-// router.patch('/liveries/', updateTraining);
+// router.get('/liveries/getall', getAllTraining);
+// router.get('/liveries/getone/:id', getOneTraining);
+router.post('/liveries/create', checkAuth, createliveries);
+// router.delete('/liveries/remove', removeTraining);
+// router.patch('/liveries/update', updateTraining);
 
 export default router;
