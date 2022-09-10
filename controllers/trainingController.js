@@ -54,3 +54,36 @@ export const getOneTraining = async (req, res) => {
         })
     }
 }
+
+export const removeTraining = async (req, res) => {
+    try {
+        const id = req.params.id;
+
+        TrainingModel.findOneAndDelete({
+            _id: id,
+        }, (err, doc) => {
+            if(err) {
+                console.log(err);
+                return res.status(500).json({
+                    message: 'Не удалость удалить заказ'
+                });
+            }
+
+            if(!doc) {
+                return res.status(404).json({
+                    message: 'Заказ не найден'
+                })
+            }
+
+            res.json({
+                message: 'Заказ удален!'
+            })
+        });
+
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({
+            message: 'Не удалось получить заказы'
+        })
+    }
+}
