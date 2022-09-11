@@ -87,3 +87,40 @@ export const removeTraining = async (req, res) => {
         })
     }
 }
+
+export const updateTraining = async (req, res) => {
+    try {
+        const id = req.params.id;
+
+        await TrainingModel.updateOne(
+            {
+                _id: id,
+            },
+            {
+                orderNumber: req.body.orderNumber,
+                orderName: req.body.orderName,
+                communications: req.body.communications,
+                orderDate: req.body.orderDate,
+                car: req.body.car,
+                track: req.body.track,
+                experience: req.body.experience,
+                files: req.body.files,
+                coment: req.body.coment,
+                equipment: req.body.equipment,
+                executor: req.body.executor,
+                price: req.body.price,
+                status: req.body.status,
+                user: req.userId,
+            },
+        );
+
+        res.json({
+            message: 'Заказ обновлен',
+        });
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({
+            message: 'Не удалось обновить заказ'
+        });
+    }
+}

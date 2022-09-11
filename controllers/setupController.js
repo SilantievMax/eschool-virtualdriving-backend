@@ -82,3 +82,35 @@ export const removeSetup = async (req, res) => {
         })
     }
 }
+
+export const updateSetup = async (req, res) => {
+    try {
+        const id = req.params.id;
+
+        await SetupModel.updateOne(
+            {
+                _id: id,
+            },
+            {
+                orderNumber: req.body.orderNumber,
+                orderName: req.body.orderName,
+                communications: req.body.communications,
+                car: req.body.car,
+                track: req.body.track,
+                simulator: req.body.simulator,
+                coment: req.body.coment,
+                price: req.body.price,
+                user: req.userId,
+            },
+        );
+
+        res.json({
+            message: 'Заказ обновлен',
+        });
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({
+            message: 'Не удалось обновить заказ'
+        });
+    }
+}

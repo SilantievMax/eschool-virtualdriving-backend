@@ -81,3 +81,34 @@ export const removeLiveries = async (req, res) => {
         })
     }
 }
+
+export const updateLiveries = async (req, res) => {
+    try {
+        const id = req.params.id;
+
+        await liveriesModel.updateOne(
+            {
+                _id: id,
+            },
+            {
+                orderNumber: req.body.orderNumber,
+                orderName: req.body.orderName,
+                communications: req.body.communications,
+                car: req.body.car,
+                simulator: req.body.simulator,
+                coment: req.body.coment,
+                price: req.body.price,
+                user: req.userId,
+            },
+        );
+
+        res.json({
+            message: 'Заказ обновлен',
+        });
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({
+            message: 'Не удалось обновить заказ'
+        });
+    }
+}
