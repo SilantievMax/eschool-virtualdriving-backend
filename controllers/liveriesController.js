@@ -98,7 +98,6 @@ export const updateLiveries = async (req, res) => {
                 simulator: req.body.simulator,
                 coment: req.body.coment,
                 price: req.body.price,
-                user: req.userId,
             },
         );
 
