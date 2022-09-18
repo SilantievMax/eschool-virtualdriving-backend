@@ -1,70 +1,72 @@
 import mongoose from "mongoose";
 
-const TrainingSchema = new mongoose.Schema({
+const TrainingSchema = new mongoose.Schema(
+  {
     orderNumber: {
-        type: Number,
-        required: true,
-        unique: true
+      type: Number,
+      required: true,
+      unique: true,
     },
     orderName: {
-        type: String,
-        required: true,
-        default: 'Тренировка'
+      type: String,
+      required: true,
+      default: "Тренировка",
     },
     communications: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     orderDate: {
-        type: Date
+      type: Date,
     },
     car: {
-        type: String,
+      type: String,
     },
     track: {
-        type: String,
+      type: String,
     },
     experience: {
-        type: String,
+      type: String,
     },
     files: {
-        type: String,
+      type: String,
     },
     coment: {
-        type: String,
+      type: String,
     },
     equipment: {
-        type: String,
+      type: String,
     },
     executor: {
-        type: String,
+      type: String,
     },
     price: {
-        type: Number
+      type: Number,
     },
-    user: { 
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
     status: {
-        type: String,
-        required: true,
-        default: 'В обработке'
+      type: String,
+      required: true,
+      default: "В обработке",
     },
     mark: {
-        type: Boolean,
-        required: true,
-        default: false
+      type: Boolean,
+      required: true,
+      default: false,
     },
     views: {
-        type: Boolean,
-        required: true,
-        default: false
-    }
-},
-{
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+  },
+  {
     timestamps: true,
-});
+  }
+);
 
-export default mongoose.model('Training', TrainingSchema);
+export default mongoose.model("Training", TrainingSchema);
