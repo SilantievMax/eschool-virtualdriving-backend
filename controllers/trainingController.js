@@ -110,6 +110,8 @@ export const updateTraining = async (req, res) => {
                 executor: req.body.executor,
                 price: req.body.price,
                 status: req.body.status,
+                mark: req.body.mark,
+                views: req.body.views
             },
         );
 

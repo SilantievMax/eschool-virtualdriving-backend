@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import './database/database.js'
+import './database/database.js';
 import authRoute from './routes/auth.js';
 import ordersRoute from './routes/orders.js';
 

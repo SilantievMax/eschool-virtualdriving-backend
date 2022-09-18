@@ -114,3 +114,9 @@ export const getMe = async (req, res) => {
         });
     }
 }
+
+export const loginDiscord = async (req, res) => {
+    res.status(200).json({
+        message: "Все OK"
+    })
+}

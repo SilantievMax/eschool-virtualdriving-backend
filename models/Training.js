@@ -51,6 +51,16 @@ const TrainingSchema = new mongoose.Schema({
         type: String,
         required: true,
         default: 'В обработке'
+    },
+    mark: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    views: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 },
 {
