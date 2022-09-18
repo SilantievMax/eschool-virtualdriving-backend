@@ -2,6 +2,7 @@ import { validationResult } from 'express-validator';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import UserModel from '../models/User.js';
+import passport from 'passport';
 
 export const register = async (req, res) => {
     try {
@@ -115,8 +116,6 @@ export const getMe = async (req, res) => {
     }
 }
 
-export const loginDiscord = async (req, res) => {
-    res.status(200).json({
-        message: "Все OK"
-    })
+export const redirectDiscord = (req, res) => {
+    res.send(req.user)
 }
