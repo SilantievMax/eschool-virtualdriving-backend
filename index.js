@@ -39,5 +39,5 @@ app.use('/api/orders', ordersRoute);
 
 app.listen(PORT, (err) => {
     if(err) {return console.log(err)}
-    console.log('Server OK', `PORT ${PORT}`);
-});
+    console.log(`Server OK, PORT ${PORT}`);
+}); 

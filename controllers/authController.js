@@ -30,6 +30,7 @@ export const register = async (req, res) => {
     const token = jwt.sign(
       {
         id: user._id,
+        role: user.role
       },
       JWT_SECRET,
       { expiresIn: "30d" }
@@ -44,7 +45,7 @@ export const register = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      message: "Не удалось зарегистрироваться, такой пользователь уже есть",
+      message: "Не удалось зарегистрироваться",
     });
   }
 };
@@ -76,6 +77,7 @@ export const login = async (req, res) => {
     const token = jwt.sign(
       {
         id: user._id,
+        role: user.role
       },
       JWT_SECRET,
       { expiresIn: "30d" }
@@ -104,6 +106,7 @@ export const redirectDiscord = (req, res) => {
     const token = jwt.sign(
       {
         id: user._id,
+        role: user.role
       },
       JWT_SECRET,
       { expiresIn: "30d" }
