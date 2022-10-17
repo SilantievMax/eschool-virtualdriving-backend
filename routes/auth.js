@@ -1,19 +1,20 @@
 import { Router } from 'express';
-import { register, login, getMe, redirectDiscord, updateMe} from '../controllers/authController.js';
+import * as AuthController from '../controllers/authController.js';
 import { registerValidation, loginValidation, updateMeValidation } from '../validations/authValidations.js';
 import checkAuth from '../utils/checkAuth.js';
 import passport from 'passport';
+import handleValidationErrors from '../utils/handleValidationErrors.js';
 
 const router = new Router();
 
-router.post('/register', registerValidation, register);
-router.post('/login', loginValidation, login);
-router.get('/me', checkAuth, getMe);
-router.patch('/me', checkAuth, updateMeValidation, updateMe);
+router.post('/register', registerValidation, handleValidationErrors, AuthController.register);
+router.post('/login', loginValidation, handleValidationErrors, AuthController.login);
+router.get('/me', checkAuth, AuthController.getMe);
+router.patch('/me', checkAuth, updateMeValidation, handleValidationErrors, AuthController.updateMe);
 router.get('/discord', passport.authenticate('discord')); //Перенаправление на api discord
 router.get('/redirect', passport.authenticate('discord', {
     failureRedirect: '/forbidden',
     successRedirect: '/dashboard'
-}), redirectDiscord);
+}), AuthController.redirectDiscord);
 
 export default router;

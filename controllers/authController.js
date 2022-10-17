@@ -1,4 +1,3 @@
-import { validationResult } from "express-validator";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import UserModel from "../models/User.js";
@@ -7,11 +6,6 @@ export const register = async (req, res) => {
     try {
         // Constants
         const JWT_SECRET = process.env.JWT_SECRET;
-
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json(errors.array());
-        }
 
         const password = req.body.password;
         const salt = await bcrypt.genSalt(10);
@@ -56,11 +50,6 @@ export const login = async (req, res) => {
         const JWT_SECRET = process.env.JWT_SECRET;
 
         const user = await UserModel.findOne({ email: req.body.email });
-        
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json(errors.array());
-        }
 
         if (!user) {
             return res.status(404).json({
@@ -154,11 +143,6 @@ export const getMe = async (req, res) => {
 
 export const updateMe = async (req, res) => {
     try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json(errors.array());
-        }
-
         await UserModel.updateOne(
             {
                 _id: req.userId,
