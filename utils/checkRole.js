@@ -2,7 +2,10 @@ import jwt from "jsonwebtoken";
 
 export default function (roles) {
     return function (req, res, next) {
-        const token = (req.headers.authorization || "").replace(/Bearer\s?/, "");
+        const token = (req.headers.authorization || "").replace(
+            /Bearer\s?/,
+            ""
+        );
         const JWT_SECRET = process.env.JWT_SECRET;
 
         if (token) {
@@ -10,20 +13,12 @@ export default function (roles) {
                 const decoded = jwt.verify(token, JWT_SECRET);
                 const role = decoded.role[0];
 
-                let hasRole = false
-                if(roles.includes(role)) {
-                        hasRole = true
-                    }
-                
-                // const {roles: userRoles} = jwt.verify(token, JWT_SECRET)
-                // let hasRole = false
-                // userRoles.forEach(role => {
-                //     if(roles.includes(role)) {
-                //         hasRole = true
-                //     }
-                // })
+                let hasRole = false;
+                if (roles.includes(role)) {
+                    hasRole = true;
+                }
 
-                if(!hasRole) {
+                if (!hasRole) {
                     return res.status(403).json({
                         message: "Нет доступа",
                     });
@@ -41,4 +36,4 @@ export default function (roles) {
             });
         }
     };
-};
+}
