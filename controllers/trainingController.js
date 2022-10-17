@@ -1,10 +1,12 @@
-import TrainingModel from '../models/Training.js'
+import TrainingModel from "../models/Training.js";
 
 export const createTraining = async (req, res) => {
     try {
+        const order = await TrainingModel.find().limit(1).sort({ $natural: -1 });
+        const countOrders = order.length === 1 ? order[0].orderNumber + 1 : 1000000;
+
         const doc = new TrainingModel({
-            orderNumber: req.body.orderNumber,
-            orderName: req.body.orderName,
+            orderNumber: countOrders,
             communications: req.body.communications,
             orderDate: req.body.orderDate,
             car: req.body.car,
@@ -15,32 +17,31 @@ export const createTraining = async (req, res) => {
             equipment: req.body.equipment,
             executor: req.body.executor,
             price: req.body.price,
-            status: req.body.status,
             user: req.userId,
         });
 
-        const post = await doc.save();
+        const training = await doc.save();
 
-        res.json(post);
+        res.json(training);
     } catch (err) {
-        console.log(err)
+        console.log(err);
         res.status(500).json({
-            message: 'Не удалось создать заказ'
-        })
+            message: "Не удалось создать заказ",
+        });
     }
-}
+};
 
 export const getAllTraining = async (req, res) => {
     try {
-        const orders = await TrainingModel.find().populate('user').exec();
+        const orders = await TrainingModel.find().populate("user").exec();
         res.json(orders);
     } catch (err) {
-        console.log(err)
+        console.log(err);
         res.status(500).json({
-            message: 'Не удалось получить статьи'
-        })
+            message: "Не удалось получить статьи",
+        });
     }
-}
+};
 
 export const getOneTraining = async (req, res) => {
     try {
@@ -48,45 +49,47 @@ export const getOneTraining = async (req, res) => {
         const order = await TrainingModel.findById(id);
         res.json(order);
     } catch (err) {
-        console.log(err)
+        console.log(err);
         res.status(500).json({
-            message: 'Не удалось получить статью'
-        })
+            message: "Не удалось получить статью",
+        });
     }
-}
+};
 
 export const removeTraining = async (req, res) => {
     try {
         const id = req.params.id;
 
-        TrainingModel.findOneAndDelete({
-            _id: id,
-        }, (err, doc) => {
-            if(err) {
-                console.log(err);
-                return res.status(500).json({
-                    message: 'Не удалость удалить заказ'
+        TrainingModel.findOneAndDelete(
+            {
+                _id: id,
+            },
+            (err, doc) => {
+                if (err) {
+                    console.log(err);
+                    return res.status(500).json({
+                        message: "Не удалость удалить заказ",
+                    });
+                }
+
+                if (!doc) {
+                    return res.status(404).json({
+                        message: "Заказ не найден",
+                    });
+                }
+
+                res.json({
+                    message: "Заказ удален!",
                 });
             }
-
-            if(!doc) {
-                return res.status(404).json({
-                    message: 'Заказ не найден'
-                })
-            }
-
-            res.json({
-                message: 'Заказ удален!'
-            })
-        });
-
+        );
     } catch (err) {
-        console.log(err)
+        console.log(err);
         res.status(500).json({
-            message: 'Не удалось получить заказы'
-        })
+            message: "Не удалось получить заказы",
+        });
     }
-}
+};
 
 export const updateTraining = async (req, res) => {
     try {
@@ -111,17 +114,17 @@ export const updateTraining = async (req, res) => {
                 price: req.body.price,
                 status: req.body.status,
                 mark: req.body.mark,
-                views: req.body.views
-            },
+                views: req.body.views,
+            }
         );
 
         res.json({
-            message: 'Заказ обновлен',
+            message: "Заказ обновлен",
         });
     } catch (err) {
-        console.log(err)
+        console.log(err);
         res.status(500).json({
-            message: 'Не удалось обновить заказ'
+            message: "Не удалось обновить заказ",
         });
     }
-}
+};

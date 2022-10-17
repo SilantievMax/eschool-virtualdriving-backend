@@ -51,6 +51,7 @@ const TrainingSchema = new mongoose.Schema(
     status: {
       type: String,
       required: true,
+      enum: ['В обработке', 'Оплачен', 'Ждет оценки', 'Заявка закрыта'],
       default: "В обработке",
     },
     mark: {

@@ -9,7 +9,7 @@ const router = new Router();
 router.post('/register', registerValidation, register);
 router.post('/login', loginValidation, login);
 router.get('/me', checkAuth, getMe);
-router.patch('/me', updateMeValidation, checkAuth, updateMe);
+router.patch('/me', checkAuth, updateMeValidation, updateMe);
 router.get('/discord', passport.authenticate('discord')); //Перенаправление на api discord
 router.get('/redirect', passport.authenticate('discord', {
     failureRedirect: '/forbidden',

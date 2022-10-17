@@ -1,28 +1,27 @@
 import { Router } from "express";
-import { createTraining, getAllTraining, getOneTraining, removeTraining, updateTraining } from '../controllers/trainingController.js'
-import { createSetup, getAllSetup, getOneSetup, removeSetup, updateSetup } from '../controllers/setupController.js'
-import { createliveries, getAllLiveries, getOneLiveries, removeLiveries, updateLiveries } from '../controllers/liveriesController.js'
-// import { registerValidation, loginValidation } from "../validations/authValidations.js";
 import checkAuth from '../utils/checkAuth.js'
+import * as TrainingController from '../controllers/trainingController.js'
+import * as SetupController from '../controllers/setupController.js'
+import * as LiveriesController from '../controllers/liveriesController.js'
 
 const router = new Router();
 
-router.post('/training/create', checkAuth, createTraining);
-router.get('/training/getall', checkAuth, getAllTraining);
-router.get('/training/getone/:id', checkAuth, getOneTraining);
-router.delete('/training/remove/:id', checkAuth, removeTraining);
-router.patch('/training/update/:id', checkAuth, updateTraining);
+router.post('/training', checkAuth, TrainingController.createTraining);
+router.get('/training', checkAuth, TrainingController.getAllTraining);
+router.get('/training/:id', checkAuth, TrainingController.getOneTraining);
+router.delete('/training/:id', checkAuth, TrainingController.removeTraining);
+router.patch('/training/:id', checkAuth, TrainingController.updateTraining);
 
-router.post('/setup/create', checkAuth, createSetup);
-router.get('/setup/getall', checkAuth, getAllSetup);
-router.get('/setup/getone/:id', getOneSetup);
-router.delete('/setup/remove/:id', checkAuth, removeSetup);
-router.patch('/setup/update/:id', checkAuth, updateSetup);
+router.post('/setup/create', checkAuth, SetupController.createSetup);
+router.get('/setup/getall', checkAuth, SetupController.getAllSetup);
+router.get('/setup/getone/:id', SetupController.getOneSetup);
+router.delete('/setup/remove/:id', checkAuth, SetupController.removeSetup);
+router.patch('/setup/update/:id', checkAuth, SetupController.updateSetup);
 
-router.post('/liveries/create', checkAuth, createliveries);
-router.get('/liveries/getall', getAllLiveries);
-router.get('/liveries/getone/:id', getOneLiveries);
-router.delete('/liveries/remove/:id', checkAuth, checkAuth, removeLiveries);
-router.patch('/liveries/update/:id', checkAuth, updateLiveries);
+router.post('/liveries/create', checkAuth, LiveriesController.createliveries);
+router.get('/liveries/getall', LiveriesController.getAllLiveries);
+router.get('/liveries/getone/:id', LiveriesController.getOneLiveries);
+router.delete('/liveries/remove/:id', checkAuth, LiveriesController.removeLiveries);
+router.patch('/liveries/update/:id', checkAuth, LiveriesController.updateLiveries);
 
 export default router;
