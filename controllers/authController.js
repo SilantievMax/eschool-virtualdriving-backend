@@ -56,6 +56,11 @@ export const login = async (req, res) => {
         const JWT_SECRET = process.env.JWT_SECRET;
 
         const user = await UserModel.findOne({ email: req.body.email });
+        
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json(errors.array());
+        }
 
         if (!user) {
             return res.status(404).json({

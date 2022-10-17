@@ -11,6 +11,9 @@ router.post('/login', loginValidation, login);
 router.get('/me', checkAuth, getMe);
 router.patch('/me', updateMeValidation, checkAuth, updateMe);
 router.get('/discord', passport.authenticate('discord')); //Перенаправление на api discord
-router.get('/redirect', passport.authenticate('discord', {failureRedirect: '/forbidden'}), redirectDiscord);
+router.get('/redirect', passport.authenticate('discord', {
+    failureRedirect: '/forbidden',
+    successRedirect: '/dashboard'
+}), redirectDiscord);
 
 export default router;

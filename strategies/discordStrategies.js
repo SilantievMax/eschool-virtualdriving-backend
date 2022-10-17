@@ -25,6 +25,7 @@ passport.use(
     async (accessToken, refreshToken, profile, done) => {
       try {
         const user = await DiscordUser.findOne({ discordId: profile.id });
+        const avatarUrl = `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}`
 
         if (user) {
           done(null, user);
@@ -33,7 +34,7 @@ passport.use(
             discordId: profile.id,
             fullName: profile.username,
             email: profile.email,
-            avatarUrl: profile.avatar,
+            avatarUrl: avatarUrl,
           });
           const saveUser = await newUser.save();
           done(null, saveUser);
