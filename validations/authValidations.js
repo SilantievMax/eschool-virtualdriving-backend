@@ -12,3 +12,9 @@ export const registerValidation = [
     // body('role', 'Роль не назначена').isLength({min: 2}),
     body('avatarUrl', 'Неверная ссылка на аватарку').optional().isURL()
 ];
+
+export const updateMeValidation = [
+    body('fullName', 'Имя должно быть минимум 3 символов').isLength({min: 3}),
+    // body('role', 'Роль не назначена').isLength({min: 2}),
+    body('avatarUrl', 'Неверная ссылка на аватарку').optional().isURL()
+];

@@ -8,7 +8,7 @@ import checkAuth from '../utils/checkAuth.js'
 const router = new Router();
 
 router.post('/training/create', checkAuth, createTraining);
-router.get('/training/getall', getAllTraining);
+router.get('/training/getall', checkAuth, getAllTraining);
 router.get('/training/getone/:id', checkAuth, getOneTraining);
 router.delete('/training/remove/:id', checkAuth, removeTraining);
 router.patch('/training/update/:id', checkAuth, updateTraining);
