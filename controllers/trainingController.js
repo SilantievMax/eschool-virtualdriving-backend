@@ -46,6 +46,18 @@ export const getAllTraining = async (req, res) => {
     }
 };
 
+export const getAllTrainingUser = async (req, res) => {
+    try {
+        const orders = await TrainingModel.find({user: req.userId}).populate("user").exec();
+        res.json(orders);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: "Не удалось получить статьи",
+        });
+    }
+};
+
 export const getOneTraining = async (req, res) => {
     try {
         const orderId = req.params.id;

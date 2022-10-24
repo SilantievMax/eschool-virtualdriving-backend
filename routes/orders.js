@@ -9,6 +9,7 @@ const router = new Router();
 
 router.post('/training', checkAuth, TrainingController.createTraining);
 router.get('/training', checkAuth, checkRole(["SUPERADMIN"]), TrainingController.getAllTraining);
+router.get('/training/user', checkAuth, checkRole(["USER"]), TrainingController.getAllTrainingUser); 
 router.get('/training/:id', checkAuth, TrainingController.getOneTraining);
 router.delete('/training/:id', checkAuth, TrainingController.removeTraining);
 router.patch('/training/:id', checkAuth, TrainingController.updateTraining);
