@@ -14,11 +14,13 @@ router.get('/training/:id', checkAuth, TrainingController.getOneTraining);
 router.delete('/training/:id', checkAuth, TrainingController.removeTraining);
 router.patch('/training/:id', checkAuth, TrainingController.updateTraining);
 
-router.post('/setup/create', checkAuth, SetupController.createSetup);
-router.get('/setup/getall', checkAuth, SetupController.getAllSetup);
-router.get('/setup/getone/:id', checkAuth, SetupController.getOneSetup);
-router.delete('/setup/remove/:id', checkAuth, SetupController.removeSetup);
-router.patch('/setup/update/:id', checkAuth, SetupController.updateSetup);
+router.get('/names-setup/', SetupController.getNamesSetup);
+router.post('/setup/', checkAuth, SetupController.createSetup);
+router.get('/setup/', checkAuth, checkRole(["SUPERADMIN"]), SetupController.getAllSetup);
+router.get('/setup/user', checkAuth, checkRole(["USER"]), SetupController.getAllSetupUser); 
+router.get('/setup/:id', checkAuth, SetupController.getOneSetup);
+router.delete('/setup/:id', checkAuth, SetupController.removeSetup);
+router.patch('/setup/:id', checkAuth, SetupController.updateSetup);
 
 router.post('/liveries/create', checkAuth, LiveriesController.createliveries);
 router.get('/liveries/getall', checkAuth, LiveriesController.getAllLiveries);

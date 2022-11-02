@@ -41,19 +41,21 @@ export const getAllTraining = async (req, res) => {
     } catch (err) {
         console.log(err);
         res.status(500).json({
-            message: "Не удалось получить статьи",
+            message: "Не удалось получить заказ",
         });
     }
 };
 
 export const getAllTrainingUser = async (req, res) => {
     try {
-        const orders = await TrainingModel.find({user: req.userId}).populate("user").exec();
+        const orders = await TrainingModel.find({ user: req.userId })
+            .populate("user")
+            .exec();
         res.json(orders);
     } catch (err) {
         console.log(err);
         res.status(500).json({
-            message: "Не удалось получить статьи",
+            message: "Не удалось получить заказы",
         });
     }
 };
@@ -77,7 +79,7 @@ export const getOneTraining = async (req, res) => {
                 if (err) {
                     console.log(err);
                     return res.status(500).json({
-                        message: "Не удалось обновить заказ",
+                        message: "Не удалось получить заказ",
                     });
                 }
 
@@ -87,13 +89,13 @@ export const getOneTraining = async (req, res) => {
                     });
                 }
 
-                res.json(doc)
+                res.json(doc);
             }
-        );
+        ).populate("user");
     } catch (err) {
         console.log(err);
         res.status(500).json({
-            message: "Не удалось получить статью",
+            message: "Не удалось получить заказ",
         });
     }
 };
@@ -142,8 +144,6 @@ export const updateTraining = async (req, res) => {
                 _id: orderId,
             },
             {
-                orderNumber: req.body.orderNumber,
-                orderName: req.body.orderName,
                 communications: req.body.communications,
                 orderDate: req.body.orderDate,
                 car: req.body.car,
