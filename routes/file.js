@@ -5,6 +5,8 @@ import * as FileController from "../controllers/fileUploadController.js";
 
 const router = new Router();
 
-router.post("/", checkAuth, FileController.uploadfile);
+router.post("/", checkRole(["SUPERADMIN"]), checkAuth, FileController.uploadfile);
+router.get("/", checkRole(["SUPERADMIN"]), FileController.getAllFile)
+router.delete("/:id", checkRole(["SUPERADMIN"]), FileController.removeFile)
 
 export default router;
