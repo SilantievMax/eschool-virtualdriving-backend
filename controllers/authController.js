@@ -27,7 +27,7 @@ export const register = async (req, res) => {
                 role: user.role,
             },
             JWT_SECRET,
-            { expiresIn: "30d" }
+            { expiresIn: "2d" }
         );
 
         const { passwordHash, ...userData } = user._doc;
@@ -74,7 +74,7 @@ export const login = async (req, res) => {
                 role: user.role,
             },
             JWT_SECRET,
-            { expiresIn: "30d" }
+            { expiresIn: "2d" }
         );
 
         const { passwordHash, discordId, ...userData } = user._doc;
@@ -103,7 +103,7 @@ export const redirectDiscord = (req, res) => {
                 role: user.role,
             },
             JWT_SECRET,
-            { expiresIn: "30d" }
+            { expiresIn: "2d" }
         );
         const { discordId, ...userData } = user._doc;
 
