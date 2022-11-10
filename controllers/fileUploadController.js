@@ -48,7 +48,7 @@ export const getAllFile = async (req, res) => {
         const files = await FileModel.find().populate("user").exec();
         if (files) {
             const newFiles = files.map((file) => {
-                const accessLink = `http://192.168.0.14:3002/static/${file.path}`;
+                const accessLink = `http://localhost:3002/static/${file.path}`;
                 return { file, accessLink };
             });
             return res.status(200).json(newFiles);
