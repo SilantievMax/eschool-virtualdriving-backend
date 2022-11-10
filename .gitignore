@@ -3,3 +3,6 @@ node_modules
 package-lock.json
 uploads/*
 !uploads/.gitkeep
+!uploads/img/
+uploads/img/*
+!uploads/img/.gitkeep

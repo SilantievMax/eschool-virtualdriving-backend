@@ -7,8 +7,13 @@ export const uploadfile = async (req, res) => {
     if (req.files) {
         try {
             const file = req.files.file;
+            const img = req.files.img;
             const filePath =
                 process.env.SERVER_FILES + file.name.split(" ").join("_");
+            const imgPath =
+                process.env.SERVER_FILES +
+                "img/" +
+                img.name.split(" ").join("_");
 
             const isFile = await FileModel.findOne({ name: file.name });
 
@@ -17,13 +22,22 @@ export const uploadfile = async (req, res) => {
                     name: file.name,
                     type: file.mimetype,
                     size: file.size,
-                    path: filePath,
+                    pathFile: filePath,
                     user: req.userId,
+                    prise: req.body.prise,
+                    imgFile: imgPath,
                 });
 
                 const fileSave = await doc.save();
 
                 file.mv(filePath, (err) => {
+                    if (err) {
+                        return res.status(500).json({
+                            message: "Произошла ошибка при загрузке файла",
+                        });
+                    }
+                });
+                img.mv(imgPath, (err) => {
                     if (err) {
                         return res.status(500).json({
                             message: "Произошла ошибка при загрузке файла",

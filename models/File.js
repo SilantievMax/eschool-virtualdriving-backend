@@ -15,7 +15,15 @@ const FileSchema = new mongoose.Schema(
             type: Number,
             default: 0,
         },
-        path: {
+        pathFile: {
+            type: String,
+            default: "",
+        },
+        prise: {
+            type: Number,
+            required: true,
+        },
+        imgFile: {
             type: String,
             default: "",
         },
