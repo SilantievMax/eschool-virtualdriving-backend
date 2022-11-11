@@ -3,16 +3,15 @@ import upload from "express-fileupload";
 import cors from "cors";
 import dotenv from "dotenv";
 import morgan from "morgan";
+import session from "express-session";
+import passport from "passport";
 import "./database/database.js";
+import "./strategies/discordStrategies.js";
 import authRoute from "./routes/auth.js";
 import ordersRoute from "./routes/orders.js";
 import fileRoute from "./routes/file.js";
-
-import session from "express-session";
-import passport from "passport";
-import "./strategies/discordStrategies.js";
+import alldataRoute from "./routes/alldata.js";
 import { pathLocalServerForFiles } from "./controllers/fileUploadController.js";
-import checkAuth from "./utils/checkAuth.js";
 
 const app = express();
 dotenv.config();
@@ -47,6 +46,7 @@ app.use(passport.session());
 app.use("/api/auth", authRoute);
 app.use("/api/orders", ordersRoute);
 app.use("/api/files", fileRoute);
+app.use("/api/info", alldataRoute);
 app.use("/static", pathLocalServerForFiles);
 
 app.listen(PORT, IP_ADDRES, (err) => {
