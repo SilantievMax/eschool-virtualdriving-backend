@@ -1,4 +1,6 @@
 import FileModel from "../models/File.js";
+import CarModel from "../models/Car.js";
+import TrackModel from "../models/Track.js";
 
 const accessUrl = 'http://localhost:3002/static/'
 
@@ -18,6 +20,30 @@ export const getNamesSetup = async (req, res) => {
         console.log(err);
         res.status(500).json({
             message: "Не удалось получить информацию",
+        });
+    }
+};
+
+export const getAllCar = async (req, res) => {
+    try {
+        const info = await CarModel.find();
+        res.json(info);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: "Не удалось получить данные",
+        });
+    }
+};
+
+export const getAllTrack = async (req, res) => {
+    try {
+        const info = await TrackModel.find();
+        res.json(info);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: "Не удалось получить данные",
         });
     }
 };

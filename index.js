@@ -9,7 +9,7 @@ import "./database/database.js";
 import "./strategies/discordStrategies.js";
 import authRoute from "./routes/auth.js";
 import ordersRoute from "./routes/orders.js";
-import fileRoute from "./routes/file.js";
+import updateinfoRoute from "./routes/updateinfo.js";
 import alldataRoute from "./routes/alldata.js";
 import { pathLocalServerForFiles } from "./controllers/fileUploadController.js";
 
@@ -45,7 +45,7 @@ app.use(passport.session());
 // Routes
 app.use("/api/auth", authRoute);
 app.use("/api/orders", ordersRoute);
-app.use("/api/files", fileRoute);
+app.use("/api/update", updateinfoRoute);
 app.use("/api/info", alldataRoute);
 app.use("/static", pathLocalServerForFiles);
 
