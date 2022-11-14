@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const PriceSchema = new mongoose.Schema(
     {
-        price: {
+        priceTraining: {
             type: String,
             required: true,
             unique: true,
