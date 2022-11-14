@@ -1,14 +1,14 @@
 {
   "name": "eschool-virtualdriving-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Server application with api for processing requests from the client 'eschool-virtualdriving'",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "nodemon index.js"
   },
   "keywords": [],
-  "author": "SilantievMax - silantiievmax@gmail.com",
+  "author": "SilantievMax <silantiievmax@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
