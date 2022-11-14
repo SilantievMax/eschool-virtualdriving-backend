@@ -15,33 +15,40 @@ const TrainingSchema = new mongoose.Schema(
         communications: {
             type: String,
             required: true,
+            trim: true,
         },
         orderDate: {
             type: Date,
         },
         car: {
             type: String,
+            trim: true,
         },
         track: {
             type: String,
+            trim: true,
         },
         experience: {
             type: String,
+            trim: true,
         },
         files: {
             type: String,
         },
         coment: {
             type: String,
+            trim: true,
         },
         equipment: {
             type: String,
+            trim: true,
         },
         executor: {
             type: String,
         },
         price: {
             type: Number,
+            trim: true,
         },
         user: {
             type: mongoose.Schema.Types.ObjectId,

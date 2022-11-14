@@ -14,18 +14,23 @@ const LiveriesSchema = new mongoose.Schema({
     communications: {
         type: String,
         required: true,
+        trim: true,
     },
     car: {
         type: String,
+        trim: true,
     },
     simulator: {
         type: String,
+        trim: true,
     },
     coment: {
         type: String,
+        trim: true,
     },
     price: {
-        type: Number
+        type: Number,
+        trim: true,
     },
     user: { 
         type: mongoose.Schema.Types.ObjectId,
