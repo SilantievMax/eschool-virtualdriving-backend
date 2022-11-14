@@ -4,12 +4,19 @@ import UserModel from "../models/User.js";
 
 export const register = async (req, res) => {
     try {
-        // Constants
         const JWT_SECRET = process.env.JWT_SECRET;
+
+        const candidate = await UserModel.findOne({ email: req.body.email });
+
+        if (candidate) {
+            return res
+                .status(400)
+                .json({ message: "Вы уже зарегистрированы!" });
+        }
 
         const password = req.body.password;
         const salt = await bcrypt.genSalt(10);
-        const hash = await bcrypt.hash(password, salt);
+        const hash = await bcrypt.hash(password.trim(), salt);
 
         const doc = new UserModel({
             fullName: req.body.fullName,
@@ -39,14 +46,13 @@ export const register = async (req, res) => {
     } catch (err) {
         console.log(err);
         res.status(500).json({
-            message: "Не удалось зарегистрироваться",
+            message: "Не удалось зарегистрироваться!",
         });
     }
 };
 
 export const login = async (req, res) => {
     try {
-        // Constants
         const JWT_SECRET = process.env.JWT_SECRET;
 
         const user = await UserModel.findOne({ email: req.body.email });
@@ -122,6 +128,7 @@ export const redirectDiscord = (req, res) => {
 export const getMe = async (req, res) => {
     try {
         const user = await UserModel.findById(req.userId);
+
         if (!user) {
             return res.status(404).json({
                 message: "Пользователь не найден",

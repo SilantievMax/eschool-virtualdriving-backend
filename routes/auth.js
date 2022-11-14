@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import * as AuthController from '../controllers/authController.js';
-import { registerValidation, loginValidation, updateMeValidation } from '../validations/authValidations.js';
-import checkAuth from '../utils/checkAuth.js';
 import passport from 'passport';
+import checkAuth from '../utils/checkAuth.js';
+import * as AuthController from '../controllers/authController.js';
 import handleValidationErrors from '../utils/handleValidationErrors.js';
+import { registerValidation, loginValidation, updateMeValidation } from '../validations/authValidations.js';
 
 const router = new Router();
 
