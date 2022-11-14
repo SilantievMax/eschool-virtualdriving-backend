@@ -53,7 +53,7 @@ export const getAllSetupUser = async (req, res) => {
             .exec();
 
         const newFiles = orders.map((file) => {
-            const accessLink = `http://192.168.0.14:3002/static/${file.setup.path}`;
+            const accessLink = `${accessUrl}${file.setup.pathFile}`;
             if (file.status !== "В обработке") {
                 return { file, accessLink };
             }
