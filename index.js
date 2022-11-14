@@ -34,7 +34,7 @@ app.use(
         },
         saveUninitialized: false,
         // resave: false,
-        // name: 'discord.oauth2',
+        name: 'discord.oauth2',
         // store: new MongoStore({ mongooseConnection: mongoose.connection })
     })
 );
