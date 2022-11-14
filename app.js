@@ -17,7 +17,7 @@ const app = express();
 dotenv.config();
 
 // Constants
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5000;
 const IP_ADDRES = process.env.IP_ADDRES;
 
 // Middleware
@@ -34,7 +34,7 @@ app.use(
         },
         saveUninitialized: false,
         // resave: false,
-        name: 'discord.oauth2',
+        name: "discord.oauth2",
         // store: new MongoStore({ mongooseConnection: mongoose.connection })
     })
 );
@@ -49,9 +49,10 @@ app.use("/api/update", updateinfoRoute);
 app.use("/api/info", alldataRoute);
 app.use("/static", pathLocalServerForFiles);
 
+// Server
 app.listen(PORT, IP_ADDRES, (err) => {
     if (err) {
         return console.log(err);
     }
-    console.log(`Server OK, PORT ${PORT}`);
+    console.log(`OK - Server, PORT ${PORT}`);
 });
