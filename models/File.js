@@ -19,8 +19,8 @@ const FileSchema = new mongoose.Schema(
             type: String,
             default: "",
         },
-        prise: {
-            type: Number,
+        price: {
+            type: Number,         
             required: true,
         },
         imgFile: {
