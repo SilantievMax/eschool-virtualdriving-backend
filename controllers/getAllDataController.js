@@ -11,9 +11,9 @@ export const getNamesSetup = async (req, res) => {
             return res.status(400).json({ message: "Нет данных" });
         }
         const newOrders = orders.map((order) => {
-            const { _id, name, imgFile, prise } = order;
+            const { _id, name, imgFile, price } = order;
             const accessLinkImg = `${accessUrl}${imgFile}`;
-            return { _id, name, prise, accessLinkImg };
+            return { _id, name, price, accessLinkImg };
         });
         res.json(newOrders);
     } catch (err) {

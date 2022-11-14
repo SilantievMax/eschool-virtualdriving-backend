@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
-const PriseSchema = new mongoose.Schema(
+const PriceSchema = new mongoose.Schema(
     {
-        prise: {
+        price: {
             type: String,
             required: true,
             unique: true,
@@ -13,4 +13,4 @@ const PriseSchema = new mongoose.Schema(
     }
 );
 
-export default mongoose.model("Prise", PriseSchema);
+export default mongoose.model("Price", PriceSchema);
