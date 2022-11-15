@@ -36,12 +36,21 @@ export const createTraining = async (req, res) => {
 
 export const getAllTraining = async (req, res) => {
     try {
-        const orders = await TrainingModel.find().populate("user").exec();
-        res.json(orders);
+        const orders = await TrainingModel.find()
+            .sort({ orderNumber: -1 })
+            .populate("user")
+            .exec();
+
+        const newOrders = orders.map((order) => {
+            order.user.passwordHash = null;
+            return order;
+        });
+
+        res.json(newOrders);
     } catch (err) {
         console.log(err);
         res.status(500).json({
-            message: "Не удалось получить заказ",
+            message: "Не удалось получить заказы",
         });
     }
 };
@@ -49,9 +58,16 @@ export const getAllTraining = async (req, res) => {
 export const getAllTrainingUser = async (req, res) => {
     try {
         const orders = await TrainingModel.find({ user: req.userId })
+            .sort({ orderNumber: -1 })
             .populate("user")
             .exec();
-        res.json(orders);
+
+        const newOrders = orders.map((order) => {
+            order.user.passwordHash = null;
+            return order;
+        });
+
+        res.json(newOrders);
     } catch (err) {
         console.log(err);
         res.status(500).json({
@@ -89,6 +105,8 @@ export const getOneTraining = async (req, res) => {
                     });
                 }
 
+                doc.user.passwordHash = null;
+
                 res.json(doc);
             }
         ).populate("user");
@@ -122,7 +140,7 @@ export const removeTraining = async (req, res) => {
                     });
                 }
 
-                res.json({
+                res.status(200).json({
                     message: "Заказ удален!",
                 });
             }
@@ -160,8 +178,8 @@ export const updateTraining = async (req, res) => {
             }
         );
 
-        res.json({
-            message: "Заказ обновлен",
+        res.status(200).json({
+            message: "Заказ обновлен!",
         });
     } catch (err) {
         console.log(err);
