@@ -1,10 +1,12 @@
 import SetupModel from "../models/Setup.js";
 import FileModel from "../models/File.js";
 
-const accessUrl = 'http://localhost:3002/static/'
+const accessUrl = "http://localhost:3002/";
 
 export const createSetup = async (req, res) => {
     try {
+        const setupId = req.params.idsetup;
+
         const order = await SetupModel.find().limit(1).sort({ $natural: -1 });
         const countOrders =
             order.length === 1 ? order[0].orderNumber + 1 : 4000000;
@@ -18,7 +20,7 @@ export const createSetup = async (req, res) => {
             coment: req.body.coment,
             price: 900,
             user: req.userId,
-            setup: req.body.setup,
+            setup: setupId,
         });
 
         const setup = await doc.save();
@@ -35,13 +37,20 @@ export const createSetup = async (req, res) => {
 export const getAllSetup = async (req, res) => {
     try {
         const orders = await SetupModel.find()
+            .sort({ orderNumber: -1 })
             .populate(["user", "setup"])
             .exec();
+
+        orders.map((order) => {
+            order.user.passwordHash = null;
+            return order;
+        });
+
         res.json(orders);
     } catch (err) {
         console.log(err);
         res.status(500).json({
-            message: "Не удалось получить заказ",
+            message: "Не удалось получить заказы",
         });
     }
 };
@@ -49,12 +58,19 @@ export const getAllSetup = async (req, res) => {
 export const getAllSetupUser = async (req, res) => {
     try {
         const orders = await SetupModel.find({ user: req.userId })
+            .sort({ orderNumber: -1 })
             .populate(["user", "setup"])
             .exec();
 
+        orders.map((order) => {
+            order.user.passwordHash = null;
+            return order;
+        });
+
         const newFiles = orders.map((file) => {
-            const accessLink = `${accessUrl}${file.setup.pathFile}`;
-            if (file.status !== "В обработке") {
+            if (file.status !== "В обработке" && file.setup) {
+                const accessLink = `${accessUrl}static/${file.setup.pathFile}`;
+
                 return { file, accessLink };
             }
             return { file };
@@ -97,6 +113,8 @@ export const getOneSetup = async (req, res) => {
                         message: "Заказ не найден",
                     });
                 }
+
+                doc.user.passwordHash = null;
 
                 res.json(doc);
             }
@@ -166,7 +184,7 @@ export const updateSetup = async (req, res) => {
         );
 
         res.json({
-            message: "Заказ обновлен",
+            message: "Заказ обновлен!",
         });
     } catch (err) {
         console.log(err);

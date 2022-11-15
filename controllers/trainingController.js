@@ -41,12 +41,12 @@ export const getAllTraining = async (req, res) => {
             .populate("user")
             .exec();
 
-        const newOrders = orders.map((order) => {
+        orders.map((order) => {
             order.user.passwordHash = null;
             return order;
         });
 
-        res.json(newOrders);
+        res.json(orders);
     } catch (err) {
         console.log(err);
         res.status(500).json({
@@ -62,12 +62,12 @@ export const getAllTrainingUser = async (req, res) => {
             .populate("user")
             .exec();
 
-        const newOrders = orders.map((order) => {
+        orders.map((order) => {
             order.user.passwordHash = null;
             return order;
         });
 
-        res.json(newOrders);
+        res.json(orders);
     } catch (err) {
         console.log(err);
         res.status(500).json({
