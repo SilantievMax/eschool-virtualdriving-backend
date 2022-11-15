@@ -7,6 +7,11 @@ const FileSchema = new mongoose.Schema(
             required: true,
             trim: true,
         },
+        nameDefault: {
+            type: String,
+            required: true,
+            trim: true,
+        },
         type: {
             type: String,
             required: true,
@@ -21,7 +26,7 @@ const FileSchema = new mongoose.Schema(
             default: "",
         },
         price: {
-            type: Number,         
+            type: Number,
             required: true,
         },
         imgFile: {

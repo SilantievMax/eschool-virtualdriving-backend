@@ -6,3 +6,4 @@ uploads/*
 !uploads/img/
 uploads/img/*
 !uploads/img/.gitkeep
+!uploads/img/default.png

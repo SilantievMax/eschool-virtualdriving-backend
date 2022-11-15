@@ -23,7 +23,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.4.6",
     "passport": "^0.6.0",
-    "passport-discord": "^0.1.4"
+    "passport-discord": "^0.1.4",
+    "randomstring": "^1.2.3"
   },
   "devDependencies": {
     "dotenv": "^16.0.1",

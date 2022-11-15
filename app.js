@@ -47,7 +47,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/orders", ordersRoute);
 app.use("/api/update", updateinfoRoute);
 app.use("/api/info", alldataRoute);
-app.use("/static", pathLocalServerForFiles);
+app.use("/api/static", pathLocalServerForFiles);
 
 // Server
 app.listen(PORT, IP_ADDRES, (err) => {
