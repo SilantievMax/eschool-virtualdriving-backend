@@ -9,7 +9,7 @@ import "./database/database.js";
 import "./strategies/discordStrategies.js";
 import authRoute from "./routes/auth.js";
 import ordersRoute from "./routes/orders.js";
-import updateinfoRoute from "./routes/updateinfo.js";
+import updateinfoRoute from "./routes/updateInfoSite.js";
 import alldataRoute from "./routes/alldata.js";
 import { pathLocalServerForFiles } from "./controllers/fileUploadController.js";
 
