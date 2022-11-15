@@ -14,7 +14,7 @@ router.get('/training/:id', checkAuth, TrainingController.getOneTraining);
 router.delete('/training/:id', checkAuth, checkRole(["SUPERADMIN"]), TrainingController.removeTraining);
 router.patch('/training/:id', checkAuth, checkRole(["SUPERADMIN"]), TrainingController.updateTraining);
 
-router.post('/setup', checkAuth, SetupController.createSetup);
+router.post('/setup/:idsetup', checkAuth, SetupController.createSetup);
 router.get('/setup', checkAuth, checkRole(["SUPERADMIN"]), SetupController.getAllSetup);
 router.get('/setup/user', checkAuth, checkRole(["USER"]), SetupController.getAllSetupUser); 
 router.get('/setup/:id', checkAuth, SetupController.getOneSetup);
