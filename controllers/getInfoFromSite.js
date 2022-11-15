@@ -2,8 +2,6 @@ import FileModel from "../models/File.js";
 import CarModel from "../models/Car.js";
 import TrackModel from "../models/Track.js";
 
-const accessUrl = "http://localhost:3002/";
-
 export const getNamesSetup = async (req, res) => {
     try {
         const docs = await FileModel.find().populate("user").exec();
@@ -14,8 +12,8 @@ export const getNamesSetup = async (req, res) => {
 
         const newDocs = docs.map((doc) => {
             const { _id, name, imgFile, price } = doc;
-            const accessLinkImg = `${accessUrl}static/${imgFile}`;
-            return { _id, name, price, accessLinkImg };
+            // const accessLinkImg = `${accessUrl}static/${imgFile}`;
+            return { _id, name, price, imgFile };
         });
 
         res.status(200).json(newDocs);
