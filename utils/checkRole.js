@@ -20,19 +20,19 @@ export default function (roles) {
 
                 if (!hasRole) {
                     return res.status(403).json({
-                        message: "Нет доступа",
+                        message: "Нет доступа!",
                     });
                 }
 
                 next();
             } catch (e) {
                 return res.status(403).json({
-                    message: "Нет доступа",
+                    message: "Нет доступа!",
                 });
             }
         } else {
             return res.status(403).json({
-                message: "Нет доступа",
+                message: "Нет доступа!",
             });
         }
     };
