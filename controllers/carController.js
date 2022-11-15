@@ -8,7 +8,7 @@ export const createCar = async (req, res) => {
 
         const info = await doc.save();
 
-        res.json(info);
+        res.status(200).json(info);
     } catch (err) {
         console.log(err);
         res.status(500).json({
@@ -20,7 +20,14 @@ export const createCar = async (req, res) => {
 export const getAllCar = async (req, res) => {
     try {
         const info = await CarModel.find();
-        res.json(info);
+
+        if (!info) {
+            return res.status(404).json({
+                message: "Данные нет",
+            });
+        }
+
+        res.status(200).json(info);
     } catch (err) {
         console.log(err);
         res.status(500).json({
@@ -51,7 +58,7 @@ export const removeCar = async (req, res) => {
                     });
                 }
 
-                res.json({
+                res.status(200).json({
                     message: "Данные удалены!",
                 });
             }
