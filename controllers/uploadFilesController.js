@@ -3,7 +3,7 @@ import fs from "fs";
 import { dirname } from "path";
 import FileModel from "../models/File.js";
 
-const accessUrl = "http://localhost:3002/static/";
+const accessUrl = "http://localhost:3002/";
 
 export const uploadfile = async (req, res) => {
     if (req.files) {
@@ -67,8 +67,8 @@ export const getAllFile = async (req, res) => {
         const files = await FileModel.find().populate("user").exec();
         if (files) {
             const newFiles = files.map((file) => {
-                const accessLinkFile = `${accessUrl}${file.pathFile}`;
-                const accessLinkImg = `${accessUrl}${file.imgFile}`;
+                const accessLinkFile = `${accessUrl}static/${file.pathFile}`;
+                const accessLinkImg = `${accessUrl}static/${file.imgFile}`;
                 return { file, accessLinkFile, accessLinkImg };
             });
             return res.status(200).json(newFiles);

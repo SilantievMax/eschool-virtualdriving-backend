@@ -11,7 +11,7 @@ import authRoute from "./routes/auth.js";
 import ordersRoute from "./routes/orders.js";
 import updateinfoRoute from "./routes/updateInfoSite.js";
 import alldataRoute from "./routes/getInfoFromSite.js";
-import { pathLocalServerForFiles } from "./controllers/fileUploadController.js";
+import { pathLocalServerForFiles } from "./controllers/uploadFilesController.js";
 
 const app = express();
 dotenv.config();
