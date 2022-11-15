@@ -18,7 +18,7 @@ export const getNamesSetup = async (req, res) => {
             return { _id, name, price, accessLinkImg };
         });
 
-        res.json(newDocs);
+        res.status(200).json(newDocs);
     } catch (err) {
         console.log(err);
         res.status(500).json({
@@ -35,7 +35,7 @@ export const getAllCar = async (req, res) => {
             return res.status(400).json({ message: "Нет данных!" });
         }
 
-        res.json(docs);
+        res.status(200).json(docs);
     } catch (err) {
         console.log(err);
         res.status(500).json({
@@ -52,7 +52,7 @@ export const getAllTrack = async (req, res) => {
             return res.status(400).json({ message: "Нет данных!" });
         }
 
-        res.json(docs);
+        res.status(200).json(docs);
     } catch (err) {
         console.log(err);
         res.status(500).json({
