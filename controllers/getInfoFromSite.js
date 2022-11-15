@@ -2,20 +2,23 @@ import FileModel from "../models/File.js";
 import CarModel from "../models/Car.js";
 import TrackModel from "../models/Track.js";
 
-const accessUrl = 'http://localhost:3002/static/'
+const accessUrl = "http://localhost:3002/";
 
 export const getNamesSetup = async (req, res) => {
     try {
-        const orders = await FileModel.find().populate("user").exec();
-        if (!orders) {
-            return res.status(400).json({ message: "Нет данных" });
+        const docs = await FileModel.find().populate("user").exec();
+
+        if (!docs) {
+            return res.status(400).json({ message: "Нет данных!" });
         }
-        const newOrders = orders.map((order) => {
-            const { _id, name, imgFile, price } = order;
-            const accessLinkImg = `${accessUrl}${imgFile}`;
+
+        const newDocs = docs.map((doc) => {
+            const { _id, name, imgFile, price } = doc;
+            const accessLinkImg = `${accessUrl}static/${imgFile}`;
             return { _id, name, price, accessLinkImg };
         });
-        res.json(newOrders);
+
+        res.json(newDocs);
     } catch (err) {
         console.log(err);
         res.status(500).json({
@@ -26,8 +29,13 @@ export const getNamesSetup = async (req, res) => {
 
 export const getAllCar = async (req, res) => {
     try {
-        const info = await CarModel.find();
-        res.json(info);
+        const docs = await CarModel.find();
+
+        if (!docs) {
+            return res.status(400).json({ message: "Нет данных!" });
+        }
+
+        res.json(docs);
     } catch (err) {
         console.log(err);
         res.status(500).json({
@@ -38,8 +46,13 @@ export const getAllCar = async (req, res) => {
 
 export const getAllTrack = async (req, res) => {
     try {
-        const info = await TrackModel.find();
-        res.json(info);
+        const docs = await TrackModel.find();
+
+        if (!docs) {
+            return res.status(400).json({ message: "Нет данных!" });
+        }
+
+        res.json(docs);
     } catch (err) {
         console.log(err);
         res.status(500).json({
