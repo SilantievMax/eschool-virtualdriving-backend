@@ -1,8 +1,6 @@
 import SetupModel from "../models/Setup.js";
 import FileModel from "../models/File.js";
 
-const accessUrl = "http://localhost:3002/";
-
 export const createSetup = async (req, res) => {
     try {
         const setupId = req.params.idsetup;
@@ -63,20 +61,22 @@ export const getAllSetupUser = async (req, res) => {
             .exec();
 
         orders.map((order) => {
-            order.user.passwordHash = null;
-            return order;
-        });
-
-        const newFiles = orders.map((file) => {
-            if (file.status !== "В обработке" && file.setup) {
-                const accessLink = `${accessUrl}static/${file.setup.pathFile}`;
-
-                return { file, accessLink };
+            if (order.status === "В обработке") {
+                return order.setup.pathFile = "";
+            } else {
+                return order.setup.pathFile = "55555555555555";
             }
-            return { file };
         });
 
-        res.json(newFiles);
+        // const newOrders = orders.map(function (order) {
+        //     let { setup: {pathFile} } = order;
+        //     if(order.status === "В обработке") {
+        //         order.setup.pathFile = ''
+        //         console.log(pathFile);
+        //     }
+        // });
+
+        res.json(orders);
     } catch (err) {
         console.log(err);
         res.status(500).json({

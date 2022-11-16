@@ -50,7 +50,7 @@ const SetupSchema = new mongoose.Schema(
         status: {
             type: String,
             required: true,
-            enum: ["В обработке", "v", "Ждет оценки", "Заявка закрыта"],
+            enum: ["В обработке", "Оплачен", "Ждет оценки", "Заявка закрыта"],
             default: "В обработке",
         },
         mark: {
