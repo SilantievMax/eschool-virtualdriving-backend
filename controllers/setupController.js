@@ -59,24 +59,16 @@ export const getAllSetupUser = async (req, res) => {
             .sort({ orderNumber: -1 })
             .populate(["user", "setup"])
             .exec();
-
-        orders.map((order) => {
-            if (order.status === "В обработке") {
-                return order.setup.pathFile = "";
-            } else {
-                return order.setup.pathFile = "55555555555555";
+            
+        const newOrders = orders.map((order) => {
+            if(order.status === "В обработке") {
+                order.setup.pathFile = '';
             }
+            order.user.passwordHash = '';
+            return order;
         });
 
-        // const newOrders = orders.map(function (order) {
-        //     let { setup: {pathFile} } = order;
-        //     if(order.status === "В обработке") {
-        //         order.setup.pathFile = ''
-        //         console.log(pathFile);
-        //     }
-        // });
-
-        res.json(orders);
+        res.status(200).json(newOrders);
     } catch (err) {
         console.log(err);
         res.status(500).json({
