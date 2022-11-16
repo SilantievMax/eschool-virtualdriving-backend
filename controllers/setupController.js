@@ -59,12 +59,12 @@ export const getAllSetupUser = async (req, res) => {
             .sort({ orderNumber: -1 })
             .populate(["user", "setup"])
             .exec();
-            
+
         const newOrders = orders.map((order) => {
-            if(order.status === "В обработке") {
-                order.setup.pathFile = '';
+            if (order.status === "В обработке") {
+                order.setup.pathFile = "";
             }
-            order.user.passwordHash = '';
+            order.user.passwordHash = "";
             return order;
         });
 
