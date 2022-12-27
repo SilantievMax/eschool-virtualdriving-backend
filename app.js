@@ -19,6 +19,7 @@ dotenv.config();
 // Constants
 const PORT = process.env.PORT || 5000;
 const IP_ADDRES = process.env.IP_ADDRES;
+const SESSION_SECRET = process.env.SESSION_SECRET;
 
 // Middleware
 app.use(cors());
@@ -28,7 +29,7 @@ app.use(morgan("dev"));
 
 app.use(
     session({
-        secret: "xxXX1234",
+        secret: SESSION_SECRET,
         cookie: {
             maxAge: 60000 * 60 * 24,
         },
