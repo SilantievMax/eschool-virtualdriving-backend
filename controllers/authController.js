@@ -97,34 +97,6 @@ export const login = async (req, res) => {
     }
 };
 
-export const redirectDiscord = (req, res) => {
-    try {
-        // Constants
-        const JWT_SECRET = process.env.JWT_SECRET;
-        const user = req.user;
-
-        const token = jwt.sign(
-            {
-                id: user._id,
-                role: user.role,
-            },
-            JWT_SECRET,
-            { expiresIn: "2d" }
-        );
-        const { discordId, ...userData } = user._doc;
-
-        res.json({
-            ...userData,
-            token,
-        });
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({
-            message: "Не удалось авторизоваться",
-        });
-    }
-};
-
 export const getMe = async (req, res) => {
     try {
         const user = await UserModel.findById(req.userId);
