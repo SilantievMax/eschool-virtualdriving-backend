@@ -28,6 +28,10 @@ const TrainingSchema = new mongoose.Schema(
             type: String,
             trim: true,
         },
+        simulator: {
+            type: String,
+            trim: true
+        },
         experience: {
             type: String,
             trim: true,

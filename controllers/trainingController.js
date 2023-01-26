@@ -14,6 +14,7 @@ export const createTraining = async (req, res) => {
             orderDate: req.body.orderDate,
             car: req.body.car,
             track: req.body.track,
+            simulator: req.body.simulator,  
             experience: req.body.experience,
             files: req.body.files,
             coment: req.body.coment,
