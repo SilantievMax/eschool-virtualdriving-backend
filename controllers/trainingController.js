@@ -19,6 +19,9 @@ export const createTraining = async (req, res) => {
       executor: req.body.executor,
       price: req.body.price,
       user: req.userId,
+      privacyPolicy: req.body.privacyPolicy,
+      quantityTrining: req.body.quantityTrining,
+      promocode: req.body.promocode,
     });
 
     const training = await doc.save();

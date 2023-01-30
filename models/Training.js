@@ -75,6 +75,16 @@ const TrainingSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
+    privacyPolicy: {
+      type: Boolean,
+      required: true,
+    },
+    quantityTrining: {
+      type: Number,
+    },
+    promocode: {
+      type: String,
+    },
   },
   {
     timestamps: true,
