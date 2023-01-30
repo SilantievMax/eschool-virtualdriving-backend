@@ -1,3 +1,4 @@
+import { Error } from 'mongoose'
 import FileModel from "../models/File.js";
 import CarModel from "../models/Car.js";
 import TrackModel from "../models/Track.js";
@@ -19,6 +20,29 @@ export const getNamesSetup = async (req, res) => {
     res.status(200).json(newDocs);
   } catch (err) {
     console.log(err);
+    res.status(500).json({
+      message: "Не удалось получить информацию",
+    });
+  }
+};
+
+export const getSetup = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const doc = await FileModel.findById(id).exec();
+
+    const { _id, name, imgFile, price } = doc;
+
+    res.status(200).json({ _id, name, price, imgFile });
+  } catch (err) {
+    if (err instanceof Error.CastError) {
+      res.status(404).json({
+        message: "Элемент не найден",
+      });
+
+      return;
+    }
+
     res.status(500).json({
       message: "Не удалось получить информацию",
     });
