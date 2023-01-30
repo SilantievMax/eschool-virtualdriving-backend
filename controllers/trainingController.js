@@ -5,6 +5,11 @@ export const createTraining = async (req, res) => {
     const order = await TrainingModel.find().limit(1).sort({ $natural: -1 });
     const countOrders = order.length === 1 ? order[0].orderNumber + 1 : 1000000;
 
+    const orders = await TrainingModel.find({ user: req.userId }).sort({ orderNumber: -1 }).populate("user").exec();
+    if (orders.length === 3) {
+      return res.status(400).json({ message: "Вы уже сделали заказ" });
+    }
+
     const doc = new TrainingModel({
       orderNumber: countOrders,
       communications: req.body.communications,
