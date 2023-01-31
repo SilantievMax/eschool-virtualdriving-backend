@@ -21,10 +21,10 @@ router.get("/setup/:id", checkAuth, SetupController.getOneSetup);
 router.delete("/setup/:id", checkAuth, checkRole(["SUPERADMIN"]), SetupController.removeSetup);
 router.patch("/setup/:id", checkAuth, checkRole(["SUPERADMIN"]), SetupController.updateSetup);
 
-router.post("/liveries/create", checkAuth, LiveriesController.createliveries);
-router.get("/liveries/getall", checkAuth, LiveriesController.getAllLiveries);
-router.get("/liveries/getone/:id", checkAuth, LiveriesController.getOneLiveries);
-router.delete("/liveries/remove/:id", checkAuth, LiveriesController.removeLiveries);
-router.patch("/liveries/update/:id", checkAuth, LiveriesController.updateLiveries);
+router.post("/liveries", checkAuth, LiveriesController.createLiveries);
+router.get("/liveries", checkAuth, checkRole(["SUPERADMIN"]), LiveriesController.getAllLiveries);
+router.get("/liveries/:id", checkAuth, LiveriesController.getOneLiveries);
+router.delete("/liveries/:id", checkAuth, LiveriesController.removeLiveries);
+router.patch("/liveries/:id", checkAuth, LiveriesController.updateLiveries);
 
 export default router;

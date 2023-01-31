@@ -10,14 +10,21 @@ const LiveriesSchema = new mongoose.Schema(
     orderName: {
       type: String,
       required: true,
-      default: "Ливрея",
+      default: "Ливреи",
     },
     communications: {
       type: String,
       required: true,
       trim: true,
     },
+    orderDate: {
+      type: Date,
+    },
     car: {
+      type: String,
+      trim: true,
+    },
+    track: {
       type: String,
       trim: true,
     },
@@ -25,9 +32,23 @@ const LiveriesSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    experience: {
+      type: String,
+      trim: true,
+    },
+    files: {
+      type: String,
+    },
     coment: {
       type: String,
       trim: true,
+    },
+    equipment: {
+      type: String,
+      trim: true,
+    },
+    executor: {
+      type: String,
     },
     price: {
       type: Number,
@@ -37,6 +58,32 @@ const LiveriesSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
+    },
+    status: {
+      type: String,
+      required: true,
+      enum: ["В обработке", "Оплачен", "Ждет оценки", "Заявка закрыта"],
+      default: "В обработке",
+    },
+    mark: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    views: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    privacyPolicy: {
+      type: Boolean,
+      required: true,
+    },
+    quantityTrining: {
+      type: Number,
+    },
+    promocode: {
+      type: String,
     },
   },
   {
