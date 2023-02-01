@@ -29,6 +29,11 @@ const SetupSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    coupon: {
+      type: String,
+      trim: true,
+      default: ''
+    },
     coment: {
       type: String,
       trim: true,

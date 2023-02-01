@@ -14,6 +14,7 @@ export const createSetup = async (req, res) => {
       car: req.body.car,
       track: req.body.track,
       simulator: req.body.simulator,
+      coupon: req.body.coupon,
       coment: req.body.coment,
       price: 900,
       user: req.userId,
