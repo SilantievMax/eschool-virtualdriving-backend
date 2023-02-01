@@ -12,6 +12,11 @@ const FileSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    description: {
+      type: String,
+      trim: true,
+      default: "",
+    },
     type: {
       type: String,
       required: true,
@@ -33,11 +38,27 @@ const FileSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    imgCarFile: {
+      type: String,
+      default: "",
+    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
+    tracksData: [{
+      track: {
+        type: String,
+        required: true,
+        trim: true
+      },
+      time: {
+        type: String,
+        required: true,
+        trim: true
+      }
+    }],
   },
   {
     timestamps: true,

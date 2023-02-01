@@ -8,14 +8,17 @@ export const createSetup = async (req, res) => {
     const order = await SetupModel.find().limit(1).sort({ $natural: -1 });
     const countOrders = order.length === 1 ? order[0].orderNumber + 1 : 4000000;
 
+    const fileDoc = await FileModel.findById(setupId).exec();
+
     const doc = new SetupModel({
       orderNumber: countOrders,
       communications: req.body.communications,
-      car: req.body.car,
+      car: fileDoc.name,
       track: req.body.track,
       simulator: req.body.simulator,
+      coupon: req.body.coupon,
       coment: req.body.coment,
-      price: 900,
+      price: fileDoc.price,
       user: req.userId,
       setup: setupId,
     });
