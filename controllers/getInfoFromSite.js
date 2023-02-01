@@ -31,9 +31,9 @@ export const getSetup = async (req, res) => {
     const id = req.params.id;
     const doc = await FileModel.findById(id).exec();
 
-    const { _id, name, imgFile, price } = doc;
+    const { _id, name, description, imgFile, imgCarFile, price, tracksData } = doc;
 
-    res.status(200).json({ _id, name, price, imgFile });
+    res.status(200).json({ id, name, description, imgFile, imgCarFile, price, tracksData });
   } catch (err) {
     if (err instanceof Error.CastError) {
       res.status(404).json({
