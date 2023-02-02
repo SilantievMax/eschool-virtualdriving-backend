@@ -55,7 +55,6 @@ const FileSchema = new mongoose.Schema(
       },
       time: {
         type: String,
-        required: true,
         trim: true
       }
     }],
