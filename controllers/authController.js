@@ -6,7 +6,7 @@ export const register = async (req, res) => {
   try {
     const JWT_SECRET = process.env.JWT_SECRET;
 
-    const candidate = await UserModel.findOne({ email: req.body.email });
+    const candidate = await UserModel.findOne({ email: req.body.email }).populate("refPartner");
 
     if (candidate) {
       return res.status(400).json({ message: "Вы уже зарегистрированы!" });
@@ -22,6 +22,7 @@ export const register = async (req, res) => {
       passwordHash: hash,
       role: req.body.role,
       avatarUrl: req.body.avatarUrl,
+      refPartner: req.body.refPartner
     });
 
     const user = await doc.save();
@@ -94,7 +95,7 @@ export const login = async (req, res) => {
 
 export const getMe = async (req, res) => {
   try {
-    const user = await UserModel.findById(req.userId);
+    const user = await UserModel.findById(req.userId).populate("refPartner");
 
     if (!user) {
       return res.status(404).json({

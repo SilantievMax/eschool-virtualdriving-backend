@@ -17,6 +17,10 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    refPartner: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Partner"
+    },
     role: {
       type: [String],
       required: true,
