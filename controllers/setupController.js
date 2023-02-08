@@ -36,7 +36,8 @@ export const createSetup = async (req, res) => {
 
 export const getAllSetup = async (req, res) => {
   try {
-    const orders = await SetupModel.find().sort({ orderNumber: -1 }).populate(["user", "setup"]).exec();
+    // const orders = await SetupModel.find().sort({ orderNumber: -1 }).populate(["user", "setup"]).exec();
+    const orders = await SetupModel.find().sort({ orderNumber: -1 }).populate({path: "user", populate: {path: "refPartner"}}).exec();
 
     orders.map((order) => {
       order.user.passwordHash = null;

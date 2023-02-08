@@ -4,9 +4,10 @@ import * as PartnerController from "../controllers/partnerController.js";
 
 const router = new Router();
 
-router.post("/", PartnerController.createPartner);
-router.get("/", PartnerController.getAllPartner);
-router.patch("/:id", PartnerController.updatePartner);
-router.get("/url/:id", PartnerController.generatorURLPartner);
+router.post("/", checkAuth, PartnerController.createPartner);
+router.get("/", checkAuth, PartnerController.getAllPartner);
+router.get("/:id", checkAuth, PartnerController.getOnePartner);
+router.patch("/:id", checkAuth, PartnerController.updatePartner);
+router.get("/url/:id", checkAuth, PartnerController.generatorURLPartner);
 
 export default router;

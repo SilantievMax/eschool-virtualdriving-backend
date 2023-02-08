@@ -42,7 +42,7 @@ export const createTraining = async (req, res) => {
 
 export const getAllTraining = async (req, res) => {
   try {
-    const orders = await TrainingModel.find().sort({ orderNumber: -1 }).populate("user").exec();
+    const orders = await TrainingModel.find().sort({ orderNumber: -1 }).populate({path: "user", populate: {path: "refPartner"}}).exec();
 
     orders.map((order) => {
       order.user.passwordHash = null;

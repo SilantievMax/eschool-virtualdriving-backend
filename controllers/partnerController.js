@@ -37,6 +37,26 @@ export const getAllPartner = async (req, res) => {
   }
 };
 
+export const getOnePartner = async (req, res) => {
+  try {
+    const orderId = req.params.id;
+    const partner = await PartnerModel.findById(orderId);
+
+    if (!partner) {
+      return res.status(404).json({
+        message: "Партнер не найден",
+      });
+    }
+
+    res.json(partner);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: "Нет доступа",
+    });
+  }
+};
+
 export const updatePartner = async (req, res) => {
   try {
     const orderId = req.params.id;
