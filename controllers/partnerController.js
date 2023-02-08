@@ -79,10 +79,10 @@ export const generatorURLPartner = async (req, res) => {
           });
         }
 
-        if(!doc) {
-            return res.status(404).json({
-                message: `${infoId} такого партнера нет!`,
-              });
+        if (!doc) {
+          return res.status(404).json({
+            message: `${infoId} такого партнера нет!`,
+          });
         }
 
         const partnerId = doc._id;

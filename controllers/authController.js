@@ -15,6 +15,7 @@ export const register = async (req, res) => {
     const password = req.body.password;
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password.trim(), salt);
+    const checkReflink = req.body.refPartner;
 
     const doc = new UserModel({
       fullName: req.body.fullName,
@@ -22,7 +23,7 @@ export const register = async (req, res) => {
       passwordHash: hash,
       role: req.body.role,
       avatarUrl: req.body.avatarUrl,
-      refPartner: req.body.refPartner
+      refPartner: checkReflink ? checkReflink : undefined,
     });
 
     const user = await doc.save();
