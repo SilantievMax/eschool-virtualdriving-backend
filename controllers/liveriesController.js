@@ -1,4 +1,6 @@
 import LveriesModel from '../models/Liveries.js'
+import UserModel from '../models/User.js'
+import mailer from '../utils/mailer.js'
 
 export const createLiveries = async (req, res) => {
 	try {
@@ -9,6 +11,9 @@ export const createLiveries = async (req, res) => {
 		if (orders.length === 3) {
 			return res.status(400).json({ message: 'Вы уже сделали заказ' })
 		}
+
+		const user = await UserModel.findById(req.userId)
+		mailer(user.email, 'Ливреи', countOrders)
 
 		const doc = new LveriesModel({
 			orderNumber: countOrders,

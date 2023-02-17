@@ -1,5 +1,7 @@
 import SetupModel from '../models/Setup.js'
 import FileModel from '../models/File.js'
+import UserModel from '../models/User.js'
+import mailer from '../utils/mailer.js'
 
 export const createSetup = async (req, res) => {
 	try {
@@ -7,6 +9,9 @@ export const createSetup = async (req, res) => {
 
 		const order = await SetupModel.find().limit(1).sort({ $natural: -1 })
 		const countOrders = order.length === 1 ? order[0].orderNumber + 1 : 4000000
+
+		const user = await UserModel.findById(req.userId)
+		mailer(user.email, 'Сетап', countOrders)
 
 		const fileDoc = await FileModel.findById(setupId).exec()
 

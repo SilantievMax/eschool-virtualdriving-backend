@@ -22,6 +22,7 @@
     "express-validator": "^6.14.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.4.6",
+    "nodemailer": "^6.9.1",
     "passport-discord": "^0.1.4",
     "randomstring": "^1.2.3"
   },

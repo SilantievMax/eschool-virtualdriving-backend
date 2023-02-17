@@ -1,4 +1,6 @@
 import TrainingModel from '../models/Training.js'
+import UserModel from "../models/User.js"
+import mailer from '../utils/mailer.js'
 
 export const createTraining = async (req, res) => {
 	try {
@@ -9,6 +11,9 @@ export const createTraining = async (req, res) => {
 		if (orders.length === 3) {
 			return res.status(400).json({ message: 'Вы уже сделали заказ' })
 		}
+
+		const user = await UserModel.findById(req.userId)
+		mailer(user.email, 'Тринировка', countOrders)
 
 		const doc = new TrainingModel({
 			orderNumber: countOrders,
