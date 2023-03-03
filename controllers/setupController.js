@@ -2,6 +2,7 @@ import SetupModel from '../models/Setup.js'
 import FileModel from '../models/File.js'
 import UserModel from '../models/User.js'
 import mailer from '../utils/mailer.js'
+import * as Payment from './paymentController.js'
 
 export const createSetup = async (req, res) => {
 	try {
@@ -25,10 +26,12 @@ export const createSetup = async (req, res) => {
 			coment: req.body.coment,
 			price: fileDoc.price,
 			user: req.userId,
-			setup: setupId
+			setup: setupId,
+			payment: null
 		})
 
-		const setup = await doc.save()
+		const setupDoc = await doc.save()
+		const setup = setupDoc.toObject()
 
 		res.json(setup)
 	} catch (err) {
@@ -187,6 +190,39 @@ export const updateSetup = async (req, res) => {
 		console.log(err)
 		res.status(500).json({
 			message: 'Не удалось обновить заказ'
+		})
+	}
+}
+
+export const paymentSetup = async (req, res) => {
+	try {
+		const orderId = req.params.idsetup
+		const order = await SetupModel.findOne({ orderNumber: orderId }).exec()
+
+		// create payment
+		const payment = await Payment.createPaymentDoc({
+			sum: order.price,
+			description: `Заказ #${orderId}: ${order.car}`,
+			successUrl: req.body.successUrl
+		})
+
+		// update setup payment field
+		await SetupModel.updateOne(
+			{
+				orderNumber: orderId
+			},
+			{
+				payment: payment._id
+			}
+		)
+
+		res.json({
+			redirectUrl: payment.redirectUrl
+		})
+	} catch (error) {
+		console.log(error)
+		res.status(500).json({
+			message: 'Не удалось создать оплату'
 		})
 	}
 }

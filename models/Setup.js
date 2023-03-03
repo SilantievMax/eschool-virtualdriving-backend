@@ -52,6 +52,10 @@ const SetupSchema = new mongoose.Schema(
 			ref: 'File',
 			required: true
 		},
+		payment: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Payment'
+		},
 		status: {
 			type: String,
 			required: true,
