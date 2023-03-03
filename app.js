@@ -9,6 +9,7 @@ import ordersRoute from './routes/orders.js'
 import updateinfoRoute from './routes/updateInfoSite.js'
 import alldataRoute from './routes/getInfoFromSite.js'
 import partnerRoute from './routes/partner.js'
+import statisticRoute from './routes/statistics.js'
 import { pathLocalServerForFiles } from './controllers/uploadFilesController.js'
 
 const app = express()
@@ -31,6 +32,7 @@ app.use('/api/update', updateinfoRoute)
 app.use('/api/info', alldataRoute)
 app.use('/api/partner', partnerRoute)
 app.use('/api/static', pathLocalServerForFiles)
+app.use('/api/statistic', statisticRoute)
 
 // Server
 app.listen(PORT, IP_ADDRES, err => {
