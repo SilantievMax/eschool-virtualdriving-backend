@@ -1,8 +1,8 @@
+import dotenv from 'dotenv'
 import './database/database.js'
 import express from 'express'
 import upload from 'express-fileupload'
 import cors from 'cors'
-import dotenv from 'dotenv'
 import morgan from 'morgan'
 import authRoute from './routes/auth.js'
 import ordersRoute from './routes/orders.js'
@@ -12,8 +12,8 @@ import partnerRoute from './routes/partner.js'
 import statisticRoute from './routes/statistics.js'
 import { pathLocalServerForFiles } from './controllers/uploadFilesController.js'
 
-const app = express()
 dotenv.config()
+const app = express()
 
 // Constants
 const PORT = process.env.PORT || 5000
