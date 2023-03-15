@@ -9,7 +9,11 @@ import ordersRoute from './routes/orders.js'
 import updateinfoRoute from './routes/updateInfoSite.js'
 import alldataRoute from './routes/getInfoFromSite.js'
 import partnerRoute from './routes/partner.js'
+<<<<<<< HEAD
 import statisticRoute from './routes/statistics.js'
+=======
+import paymentRoute from './routes/payment.js'
+>>>>>>> feature/payment
 import { pathLocalServerForFiles } from './controllers/uploadFilesController.js'
 
 dotenv.config()
@@ -32,7 +36,11 @@ app.use('/api/update', updateinfoRoute)
 app.use('/api/info', alldataRoute)
 app.use('/api/partner', partnerRoute)
 app.use('/api/static', pathLocalServerForFiles)
+<<<<<<< HEAD
 app.use('/api/statistic', statisticRoute)
+=======
+app.use('/api/pay', paymentRoute)
+>>>>>>> feature/payment
 
 // Server
 app.listen(PORT, IP_ADDRES, err => {
