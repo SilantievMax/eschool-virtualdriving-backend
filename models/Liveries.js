@@ -65,6 +65,10 @@ const LiveriesSchema = new mongoose.Schema(
 			enum: ['В обработке', 'Оплачен', 'Ждет оценки', 'Заявка закрыта'],
 			default: 'В обработке'
 		},
+		payment: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Payment'
+		},
 		mark: {
 			type: Boolean,
 			required: true,

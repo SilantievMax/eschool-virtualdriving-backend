@@ -1,6 +1,7 @@
 import LveriesModel from '../models/Liveries.js'
 import UserModel from '../models/User.js'
 import mailer from '../utils/mailer.js'
+import * as Payment from './paymentController.js'
 
 export const createLiveries = async (req, res) => {
 	try {
@@ -190,6 +191,39 @@ export const updateLiveries = async (req, res) => {
 		console.log(err)
 		res.status(500).json({
 			message: 'Не удалось обновить заказ'
+		})
+	}
+}
+
+export const paymentLiveries = async (req, res) => {
+	try {
+		const orderId = req.params.idliveries
+		const order = await LveriesModel.findOne({ orderNumber: orderId }).exec()
+
+		// create payment
+		const payment = await Payment.createPaymentDoc({
+			sum: order.price,
+			description: `Заказ #${orderId} - ${order.orderName} `,
+			successUrl: req.body.successUrl
+		})
+
+		// update liveries payment field
+		await LveriesModel.updateOne(
+			{
+				orderNumber: orderId
+			},
+			{
+				payment: payment._id
+			}
+		)
+
+		res.json({
+			redirectUrl: payment.redirectUrl
+		})
+	} catch (error) {
+		console.log(error)
+		res.status(500).json({
+			message: 'Не удалось создать оплату'
 		})
 	}
 }

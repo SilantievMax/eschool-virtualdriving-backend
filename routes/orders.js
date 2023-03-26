@@ -8,6 +8,7 @@ import * as LiveriesController from '../controllers/liveriesController.js'
 const router = new Router()
 
 router.post('/training', checkAuth, TrainingController.createTraining)
+router.post('/training/:idtraining/payment', checkAuth, TrainingController.paymentTraining)
 router.get('/training', checkAuth, checkRole(['SUPERADMIN']), TrainingController.getAllTraining)
 router.get('/training/user', checkAuth, checkRole(['USER']), TrainingController.getAllTrainingUser)
 router.get('/training/:id', checkAuth, TrainingController.getOneTraining)
@@ -23,6 +24,7 @@ router.delete('/setup/:id', checkAuth, checkRole(['SUPERADMIN']), SetupControlle
 router.patch('/setup/:id', checkAuth, checkRole(['SUPERADMIN']), SetupController.updateSetup)
 
 router.post('/liveries', checkAuth, LiveriesController.createLiveries)
+router.post('/liveries/:idliveries/payment', checkAuth, LiveriesController.paymentLiveries)
 router.get('/liveries', checkAuth, checkRole(['SUPERADMIN']), LiveriesController.getAllLiveries)
 router.get('/liveries/:id', checkAuth, LiveriesController.getOneLiveries)
 router.delete('/liveries/:id', checkAuth, LiveriesController.removeLiveries)

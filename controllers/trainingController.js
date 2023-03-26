@@ -1,9 +1,12 @@
 import TrainingModel from '../models/Training.js'
-import UserModel from "../models/User.js"
+import UserModel from '../models/User.js'
 import mailer from '../utils/mailer.js'
+import * as Payment from './paymentController.js'
 
 export const createTraining = async (req, res) => {
 	try {
+		const trainingId = req.params.idtraining
+
 		const order = await TrainingModel.find().limit(1).sort({ $natural: -1 })
 		const countOrders = order.length === 1 ? order[0].orderNumber + 1 : 1000000
 
@@ -31,10 +34,13 @@ export const createTraining = async (req, res) => {
 			user: req.userId,
 			privacyPolicy: req.body.privacyPolicy,
 			quantityTrining: req.body.quantityTrining,
-			promocode: req.body.promocode
+			promocode: req.body.promocode,
+			training: trainingId,
+			payment: null
 		})
 
-		const training = await doc.save()
+		const trainingDoc = await doc.save()
+		const training = trainingDoc.toObject()
 
 		res.json(training)
 	} catch (err) {
@@ -193,6 +199,39 @@ export const updateTraining = async (req, res) => {
 		console.log(err)
 		res.status(500).json({
 			message: 'Не удалось обновить заказ'
+		})
+	}
+}
+
+export const paymentTraining = async (req, res) => {
+	try {
+		const orderId = req.params.idtraining
+		const order = await TrainingModel.findOne({ orderNumber: orderId }).exec()
+
+		// create payment
+		const payment = await Payment.createPaymentDoc({
+			sum: order.price,
+			description: `Заказ #${orderId}: ${order.car} - ${order.orderName}`,
+			successUrl: req.body.successUrl
+		})
+
+		// update training payment field
+		await TrainingModel.updateOne(
+			{
+				orderNumber: orderId
+			},
+			{
+				payment: payment._id
+			}
+		)
+
+		res.json({
+			redirectUrl: payment.redirectUrl
+		})
+	} catch (error) {
+		console.log(error)
+		res.status(500).json({
+			message: 'Не удалось создать оплату'
 		})
 	}
 }

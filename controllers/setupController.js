@@ -202,7 +202,7 @@ export const paymentSetup = async (req, res) => {
 		// create payment
 		const payment = await Payment.createPaymentDoc({
 			sum: order.price,
-			description: `Заказ #${orderId}: ${order.car}`,
+			description: `Заказ #${orderId}: ${order.car} - ${order.orderName}`,
 			successUrl: req.body.successUrl
 		})
 
