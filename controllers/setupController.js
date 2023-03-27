@@ -73,6 +73,7 @@ export const getAllSetupUser = async (req, res) => {
 				order.setup.pathFile = ''
 			}
 			order.user.passwordHash = ''
+			order.setup.tracksData = ''
 			return order
 		})
 

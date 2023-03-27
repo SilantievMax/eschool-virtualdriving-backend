@@ -6,7 +6,7 @@ import * as Payment from './paymentController.js'
 export const createLiveries = async (req, res) => {
 	try {
 		const order = await LveriesModel.find().limit(1).sort({ $natural: -1 })
-		const countOrders = order.length === 1 ? order[0].orderNumber + 1 : 1000000
+		const countOrders = order.length === 1 ? order[0].orderNumber + 1 : 7000000
 
 		const orders = await LveriesModel.find({ user: req.userId }).sort({ orderNumber: -1 }).populate('user').exec()
 		if (orders.length === 3) {

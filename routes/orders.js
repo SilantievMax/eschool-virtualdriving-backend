@@ -26,6 +26,7 @@ router.patch('/setup/:id', checkAuth, checkRole(['SUPERADMIN']), SetupController
 router.post('/liveries', checkAuth, LiveriesController.createLiveries)
 router.post('/liveries/:idliveries/payment', checkAuth, LiveriesController.paymentLiveries)
 router.get('/liveries', checkAuth, checkRole(['SUPERADMIN']), LiveriesController.getAllLiveries)
+router.get('/liveries/user', checkAuth, checkRole(['USER']), LiveriesController.getAllLiveriesUser)
 router.get('/liveries/:id', checkAuth, LiveriesController.getOneLiveries)
 router.delete('/liveries/:id', checkAuth, LiveriesController.removeLiveries)
 router.patch('/liveries/:id', checkAuth, LiveriesController.updateLiveries)
