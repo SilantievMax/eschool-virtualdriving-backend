@@ -10,7 +10,7 @@ const SetupSchema = new mongoose.Schema(
 		orderName: {
 			type: String,
 			required: true,
-			default: 'Сетап'
+			default: 'Full pack'
 		},
 		communications: {
 			type: String,
