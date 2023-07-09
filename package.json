@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js --development"
   },
   "keywords": [],
   "author": "SilantievMax <silantiievmax@gmail.com>",

@@ -12,6 +12,7 @@ import partnerRoute from './routes/partner.js'
 import statisticRoute from './routes/statistics.js'
 import paymentRoute from './routes/payment.js'
 import { pathLocalServerForFiles } from './controllers/uploadFilesController.js'
+import process from 'node:process'
 
 dotenv.config()
 const app = express()
@@ -24,7 +25,7 @@ const IP_ADDRES = process.env.IP_ADDRES
 app.use(cors())
 app.use(express.json())
 app.use(upload())
-app.use(morgan('dev'))
+if (process.argv[2] == '--development') app.use(morgan('dev'))
 
 // Routes
 app.use('/api/auth', authRoute)
