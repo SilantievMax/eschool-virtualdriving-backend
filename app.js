@@ -12,7 +12,8 @@ import partnerRoute from './routes/partner.js'
 import statisticRoute from './routes/statistics.js'
 import paymentRoute from './routes/payment.js'
 import { pathLocalServerForFiles } from './controllers/uploadFilesController.js'
-import process from 'node:process'
+import swaggerUi from 'swagger-ui-express'
+import  swaggerSpec  from './swagger/swgger.js'
 
 dotenv.config()
 const app = express()
@@ -20,12 +21,13 @@ const app = express()
 // Constants
 const PORT = process.env.PORT || 5000
 const IP_ADDRES = process.env.IP_ADDRES
+const isDevelop = process.argv[2] == '--development'
 
 // Middleware
 app.use(cors())
 app.use(express.json())
 app.use(upload())
-if (process.argv[2] == '--development') app.use(morgan('dev'))
+isDevelop && app.use(morgan('dev'))
 
 // Routes
 app.use('/api/auth', authRoute)
@@ -36,6 +38,7 @@ app.use('/api/partner', partnerRoute)
 app.use('/api/static', pathLocalServerForFiles)
 app.use('/api/statistic', statisticRoute)
 app.use('/api/pay', paymentRoute)
+isDevelop && app.use('/api/docs-api', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 // Server
 app.listen(PORT, IP_ADDRES, err => {

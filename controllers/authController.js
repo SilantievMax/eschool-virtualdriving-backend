@@ -9,7 +9,7 @@ export const register = async (req, res) => {
 		const candidate = await UserModel.findOne({ email: req.body.email }).populate('refPartner')
 
 		if (candidate) {
-			return res.status(400).json({ message: 'Вы уже зарегистрированы!' })
+			return res.status(403).json({ message: 'Вы уже зарегистрированы!' })
 		}
 
 		const password = req.body.password
@@ -39,7 +39,7 @@ export const register = async (req, res) => {
 
 		const { passwordHash, ...userData } = user._doc
 
-		res.json({
+		res.status(201).json({
 			...userData,
 			token
 		})
@@ -58,7 +58,7 @@ export const login = async (req, res) => {
 		const user = await UserModel.findOne({ email: req.body.email })
 
 		if (!user) {
-			return res.status(404).json({
+			return res.status(403).json({
 				message: 'Пользователь не найден'
 			})
 		}
@@ -125,7 +125,6 @@ export const updateMe = async (req, res) => {
 			},
 			{
 				fullName: req.body.fullName,
-				role: req.body.role,
 				avatarUrl: req.body.avatarUrl
 			}
 		)
