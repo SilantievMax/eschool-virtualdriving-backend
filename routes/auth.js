@@ -87,7 +87,7 @@ export default router
  *            properties:
  *              avatarUrl:
  *                type: string
- *                default: test@test.com
+ *                default: https://...
  *              password:
  *                type: string
  *                default: qwerty1234
