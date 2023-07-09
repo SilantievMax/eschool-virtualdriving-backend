@@ -1,6 +1,14 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import UserModel from '../models/User.js'
+import { rejects } from 'assert'
+import { contextsKey } from 'express-validator/src/base.js'
+
+const passwordHashing = async pass => {
+	const salt = await bcrypt.genSalt(10)
+	const hash = await bcrypt.hash(pass.trim(), salt)
+	return hash
+}
 
 export const register = async (req, res) => {
 	try {
@@ -13,8 +21,7 @@ export const register = async (req, res) => {
 		}
 
 		const password = req.body.password
-		const salt = await bcrypt.genSalt(10)
-		const hash = await bcrypt.hash(password.trim(), salt)
+		const hash = await passwordHashing(password)
 		const checkReflink = req.body.refPartner
 
 		const doc = new UserModel({
@@ -119,11 +126,24 @@ export const getMe = async (req, res) => {
 
 export const updateMe = async (req, res) => {
 	try {
+		const password = req.body.password
+		const hash = await passwordHashing(password)
+
+		const user = await UserModel.findById(req.userId)
+		const isValidPass = await bcrypt.compare(password, user._doc.passwordHash)
+
+		if (isValidPass) {
+			return res.status(400).json({
+				message: 'Это предыдущий пароль'
+			})
+		}
+
 		await UserModel.updateOne(
 			{
 				_id: req.userId
 			},
 			{
+				passwordHash: hash,
 				fullName: req.body.fullName,
 				avatarUrl: req.body.avatarUrl
 			}
