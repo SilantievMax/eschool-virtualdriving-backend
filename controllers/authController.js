@@ -17,7 +17,7 @@ export const register = async (req, res) => {
 		const candidate = await UserModel.findOne({ email: req.body.email }).populate('refPartner')
 
 		if (candidate) {
-			return res.status(403).json({ message: 'Вы уже зарегистрированы!' })
+			return res.status(203).json({ message: 'Такая почта уже есть в базе' })
 		}
 
 		const password = req.body.password
@@ -48,7 +48,8 @@ export const register = async (req, res) => {
 
 		res.status(201).json({
 			...userData,
-			token
+			token,
+			message: 'Регистрация прошла успешно'
 		})
 	} catch (err) {
 		console.log(err)
@@ -65,7 +66,7 @@ export const login = async (req, res) => {
 		const user = await UserModel.findOne({ email: req.body.email })
 
 		if (!user) {
-			return res.status(403).json({
+			return res.status(203).json({
 				message: 'Пользователь не найден'
 			})
 		}
@@ -73,7 +74,7 @@ export const login = async (req, res) => {
 		const isValidPass = await bcrypt.compare(req.body.password, user._doc.passwordHash)
 
 		if (!isValidPass) {
-			return res.status(400).json({
+			return res.status(203).json({
 				message: 'Неверный пароль или логин'
 			})
 		}
@@ -91,7 +92,8 @@ export const login = async (req, res) => {
 
 		res.json({
 			...userData,
-			token
+			token,
+			message: 'Авторизация прошла успешно'
 		})
 	} catch (err) {
 		console.log(err)
